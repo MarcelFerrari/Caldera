@@ -1,0 +1,38 @@
+# Solver options
+[options]
+output_dir = "output"                 # Directory where results will be written
+
+# Threading options
+nthreads = 4                          # Number of CPU threads to use
+threading_layer = "workqueue"         # Threading backend: "workqueue", "omp" or "tbb"
+geometry_input = "geometry.png"       # Input geometry file (PNG format)
+
+# Timestepping control
+dt_initial = 0.001                    # Initial time step (seconds)
+max_T_change = 5.0                    # Maximum temperature change per step (Kelvin)
+max_steps = 2000                      # Maximum number of simulation steps
+max_time = 10000.0                    # Maximum simulation time (seconds)
+max_dt_rejection_iterations = 30      # Max iterations for time step bisection
+framedump_interval = 1                # Interval for writing output frames
+
+# Boundary conditions
+T_up = 30.0                          # Upper boundary temperature (Kelvin/C)
+T_down = 90.0                        # Lower boundary temperature (Kelvin/C)
+T_left = 30.0                        # Left boundary temperature (Kelvin/C)
+T_right = 30.0                       # Right boundary temperature (Kelvin/C)
+
+SIDE_ZERO_FLUX = false               # Enable zero-flux boundary conditions on the
+                                     # instead of fixed temperatures
+TOP_ZERO_FLUX = false                # Enable zero-flux boundary conditions on the
+                                     # top side instead of fixed temperature
+
+# Geometry parameters
+[geometry]
+xsize = 0.1                           # Physical size in X (meters)
+ysize = 0.06                          # Physical size in Y (meters)
+
+# Material properties
+[geometry.materials]
+"copper" = {hex = "#1a1a1a", rho = 8960.0, Cp = 385.0, k = 400.0, T = 30.0}
+"water" = {hex = "#0000ff", rho = 1000.0, Cp = 4200.0, k = 0.65, T = 30.0} 
+"air" = {hex = "#00ffff", rho = 1.0, Cp = 1e9, k = 0.026, T = 30.0} # Artificially high Cp to simulate advective cooling

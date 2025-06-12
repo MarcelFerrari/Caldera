@@ -1,0 +1,34 @@
+#!/usr/bin/env python3
+import os
+import sys
+import argparse
+
+if __name__ == '__main__':
+    # Find Caldera's location and its prefix
+    bin = os.path.realpath(os.path.expanduser(__file__))
+    prefix = os.path.dirname(os.path.dirname(bin))
+
+    # Allow Caldera libs to be imported in our scripts
+    lib_path = os.path.join(prefix, "src")
+    sys.path.insert(0, lib_path)
+
+    # Import modules
+    from Caldera.main import Caldera
+    from Caldera.banner import print_banner
+
+    # Print the banner
+    print_banner()
+
+    # Main parser
+    parser = argparse.ArgumentParser(description='Run 3D MIC simulation with Caldera')
+
+    # Add arguments
+    parser.add_argument("--input", "-i", type=str, default = "input.toml", help="Input file with simulation parameters in TOML format (default: input.toml)")
+    
+    # Parse arguments
+    args = parser.parse_args()
+
+    # Convert to a dictionary and strip None values
+    args = {k: v for k, v in vars(args).items() if v is not None}
+    solver = Caldera(args)
+    solver.solve()
