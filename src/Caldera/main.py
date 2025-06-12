@@ -212,7 +212,7 @@ class Caldera:
                 dT_max = np.nanmax(dT)
                 
                 dtmax = dt*(max_T_change/dT_max)
-                if dt <= dtmax or reject_iter == max_reject_iter - 1: # Accept the time step
+                if dt <= dtmax: # Accept the time step
                     break
                 else:
                     # Reject the time step, reduce dt
