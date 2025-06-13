@@ -212,7 +212,7 @@ class Caldera:
                 dT_max = np.nanmax(dT)
                 
                 dtmax = dt*(max_T_change/dT_max)
-                if dt <= dtmax or reject_iter == max_reject_iter - 1: # Accept the time step
+                if dt <= dtmax: # Accept the time step
                     break
                 else:
                     # Reject the time step, reduce dt
@@ -274,7 +274,7 @@ def insert(mat, i, j, v):
     # Increment current index
     mat[3][0] += 1
 
-# @nb.njit(cache=True)
+@nb.njit(cache=True)
 def assemble_matrix(nx1, ny1, dx, dy, dt, rhocp, k, T0, T_up, T_down, T_left, T_right, SIDE_ZERO_FLUX, TOP_ZERO_FLUX):
     # Assemble matrix in COO format
     n_eqs = 1               # Number of equations to solve
