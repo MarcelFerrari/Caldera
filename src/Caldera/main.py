@@ -151,8 +151,8 @@ class Caldera:
         qy = np.zeros_like(T)
 
         # Compute initial heat fluxes
-        qx = compute_qx(nx1, ny1, dx, k, T, qx)
-        qy = compute_qy(nx1, ny1, dy, k, T, qy)
+        qx = compute_qx(nx1, ny1, dx, k, Told, qx)
+        qy = compute_qy(nx1, ny1, dy, k, Told, qy)
 
         # Initialize the heat flow model
         print("Dumping initial onditions...")
@@ -163,7 +163,7 @@ class Caldera:
                 'rho': rho,
                 'Cp': Cp,
                 'k': k,
-                'T': T,
+                'T': Told,
                 'qx': qx,
                 'qy' : qy,
                 'dt' : dt,
@@ -174,7 +174,7 @@ class Caldera:
         print("Running simulation...")
         framecounter = 1
         zpad = len(str(max_steps))  # Zero padding for step numbers
-        self.n_rows = n_rows = nx1 * ny1  # Number of rows in the matrix
+        self.n_rows = nx1 * ny1  # Number of rows in the matrix
         for step in range(max_steps):            
             # Timestep bisection logic
             for reject_iter in range(max_reject_iter):
